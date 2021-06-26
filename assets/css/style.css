@@ -14,8 +14,6 @@ textarea{
   padding: 10px;
 }
 
-
-
 .jumbotron {
   text-align: center;
   background-color: transparent;
@@ -38,7 +36,7 @@ textarea{
 
 .row {
   white-space: pre-wrap;
-  height: 80px;
+  height: 10em;
   border-top: 1px solid white;;
 }
 
@@ -80,9 +78,3 @@ textarea{
   font-size: 20px;
   transition: all .3s ease-in-out;
 }
-
-
-/* Using to try to figure out the issue with overlapping rows */ 
-.testing {
-  background-color: red;
-} 
