@@ -1,26 +1,3 @@
-// Completed Objectives 
-
-
-// GIVEN I am using a daily planner to create a schedule
-// WHEN I open the planner
-// THEN the current day is displayed at the top of the calendar
-// WHEN I scroll down
-// THEN I am presented with time blocks for standard business hours (This means 9-5 according to the mock-up)
-// WHEN I view the time blocks for that day
-// THEN each time block is color-coded to indicate whether it is in the past, present, or future
-// WHEN I click into a time block
-// THEN I can enter an event
-
-// Incomplete Objectives 
-
-
-// WHEN I click the save button for that time block
-// THEN the text for that event is saved in local storage
-// WHEN I refresh the page
-// THEN the saved events persist
-
-
-
 // Global Variables 
 
 
@@ -39,16 +16,48 @@ var saveButton = document.getElementsByClassName("saveBtn");
 // Used to access the content of the text area
 var textArea = document.getElementsByClassName("description");
 
+// Used to add event listener to container element 
+var container = document.getElementById("BigContainer");
 
 
 
+// Functions 
 
-// A for loop to add event listeners to all the save buttons. What purpose will this serve? I have no clue xD
-for (i=0; i < saveButton.length; i++) {
-    saveButton[i].addEventListener('click', function() {
-        console.log(textArea[i].innerText);
-    });
-}
+
+// function to get the content of the text area and save it to local storage 
+container.addEventListener('click', function(event) {
+    
+    var targetEL = event.target 
+    
+    if (targetEL.matches(".saveBtn")) {
+       var id = targetEL.getAttribute("id")
+       
+       var selectedDiv = document.querySelector(".time-block[id='"+id+"']");
+
+       var selectedTA = selectedDiv.querySelector("textarea").value;
+
+       console.log(selectedTA);
+      
+        localStorage.setItem(id, selectedTA);
+
+    }
+    
+});
+ // function to load in the textbox value from the localStorage 
+var loadText = function() {
+    for(i=0; i < textArea.length; i++) {
+        var id = i + 9;
+
+        var selectedDiv = document.querySelector(".time-block[id='"+id+"']");
+
+        var selectedTA = selectedDiv.querySelector("textarea");
+
+        selectedTA.textContent = localStorage.getItem(id);
+
+        console.log(localStorage.getItem(id));
+    }
+};
+
 
 // Function that formats the date and time and adds it to the page 
 var currentTime = function() {
@@ -83,3 +92,6 @@ validateTimeBlockHour();
 
 // Updates the timeblocks classes every second to ensure the user has up to date accurate information. 
 setInterval(validateTimeBlockHour, 15000);
+
+// // Function call to load in the textarea content saved in localStorage 
+loadText();
